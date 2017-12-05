@@ -1,0 +1,19 @@
+{
+  "name": "nodepop",
+  "version": "1.0.0",
+  "description": "API de soporte para aplicación de venta de segunda mano",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgarciaolmeda/nodepop.git"
+  },
+  "author": "Javier Garcia (jgarciaolmeda)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgarciaolmeda/nodepop/issues"
+  },
+  "homepage": "https://github.com/jgarciaolmeda/nodepop#readme"
+}

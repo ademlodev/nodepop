@@ -3,11 +3,12 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const conn = require('../lib/connectMongoose')
-const shajs = require('sha.js')
-const sha256 = shajs(process.env.HASH)
+var hash = require('hash.js')
 
+//Cargo los esquemas y los datos
 const Ad = require('./models/Ad')
 const User = require('./models/User')
+const initialData = require('./initialData/initialData.json')
 
 conn.on('error', err => {
   console.log('Error!', err);
@@ -18,50 +19,31 @@ conn.once('open', () => {
     console.log(`Connected to MongoDB en ${mongoose.connection.name}`);
 
     async function main(){
-        let removeAds = await Ad.find({}).remove().exec();
+        await Ad.find({}).remove().exec();
         console.log('Removed Ads')
 
-        var ad1 = new Ad({
-            "name": "Bicicleta",
-            "sell": true,
-            "price": 230.15,
-            "photo": "images/ads/bici.png",
-            "tags": [ "lifestyle", "motor"]
-        });
-    
-        let addAd1 = await ad1.save();
-        console.log('Create Ad1')
-
-        var ad2 = new Ad({
-            "name": "iPhone 3GS",
-            "sell": false,
-            "price": 50.00,
-            "photo": "images/ads/iphone.jpg",
-            "tags": [ "lifestyle", "mobile"]
-        });
-    
-        let addAd2 = await ad2.save();
-        console.log('Create Ad2')
-
-        let removeUsers = await User.find({}).remove().exec();
+        await User.find({}).remove().exec();
         console.log('Removed Users')
 
-        var user = new User({
-            "name": "admin",
-            "email": "admin@admin.es",
-            "password": sha256.update("password").digest('hex')
+        await Ad.insertMany(initialData.ads, (err)=>{
+            if (err){
+                throw err;
+            }
+            console.log('Ads created') 
         });
-    
-        let addUser = await user.save();
-        console.log('Create User')
+
+        for (let i=0; i < initialData.users.length; i++){
+            initialData.users[i].password = hash.sha256().update(initialData.users[i].password).digest('hex')
+        } 
+        await User.insertMany(initialData.users, (err)=>{
+            if (err){
+                throw err;
+            }
+            console.log('Users created') 
+        });
     }
 
     main()
-    .then(() => process.exit(0))
-    .catch((err) => console.log('error: ' + err))
-
+        .then(() => process.exit(0))
+        .catch((err) => console.log('error: ' + err))
 })
-
-/* mongoose.connect('mongodb://localhost/nodepop', {
-  useMongoClient: true
-}); */

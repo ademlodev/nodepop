@@ -1,0 +1,51 @@
+{
+    "ads": [
+        {
+            "name": "Bicicleta",
+            "sell": true,
+            "price": 230.15,
+            "photo": "images/anuncios/bici.jpg",
+            "tags": [ "lifestyle", "motor"]
+        },
+        {
+            "name": "iPhone 3GS",
+            "sell": false,
+            "price": 50.00,
+            "photo": "images/anuncios/iphone.jpg",
+            "tags": [ "lifestyle", "mobile"]
+        },
+        {
+            "name": "Casco",
+            "sell": true,
+            "price": 150.00,
+            "photo": "images/anuncios/casco.jpg",
+            "tags": [ "lifestyle", "motor"]
+        },
+        {
+            "name": "Samsung S7",
+            "sell": true,
+            "price": 180.00,
+            "photo": "images/anuncios/s7.jpg",
+            "tags": [ "lifestyle", "mobile"]
+        },
+        {
+            "name": "Macbook",
+            "sell": true,
+            "price": 1500.00,
+            "photo": "images/anuncios/macbook.jpg",
+            "tags": [ "work"]
+        }
+    ],
+    "users": [
+        {
+            "name": "admin",
+            "email": "admin@admin.es",
+            "password": "password"
+        },
+        {
+            "name": "jgarcia",
+            "email": "jgarcia@admin.es",
+            "password": "password"
+        }
+    ]
+}

@@ -6,10 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 require('./lib/connectMongoose')
-
-var index = require('./routes/index');
-var users = require('./routes/apiv1/users');
-var ads   = require('./routes/apiv1/ads')
+const CustomError = require('./lib/CustomError')
+const i18n = require('i18n')
 
 var app = express();
 
@@ -25,11 +23,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use(i18n.init);
+
+app.use('/', require('./routes/index'));
 //Creamos la ruta de los usuarios
-app.use('/apiv1/users', users);
+app.use('/apiv1/users', require('./routes/apiv1/users'));
 //Creamos la ruta de los anuncios
-app.use('/apiv1/ads', ads)
+app.use('/apiv1/ads', require('./routes/apiv1/ads'))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,7 +41,8 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   if (isAPI(req)) { // llamada de API, devuelvo JSON
-    res.json({success:false, error: err.message});
+    const error = new CustomError( err.message , err.status);
+    res.json({success:false, error: error});
     return;
   }
 

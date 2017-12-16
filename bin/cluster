@@ -8,12 +8,13 @@ require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('nodepop:server');
 var https = require('https');
-const cluster = require('cluster')
+const i18n = require('i18n');
+var path = require('path');
+const cluster = require('cluster');
 
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -23,7 +24,17 @@ const options = {
   cert: fs.readFileSync('certificados/host.cert')
 };
 
-if (cluster.isMaster){ //Si soy el principal me creo los cluster
+/**
+ * Configure internationalization.
+ */
+i18n.configure({
+  locales: ['en', 'es'],
+  directory: path.join(__dirname, "..", "locales"),
+  defaultLocale: "en",
+  register: global
+});
+
+if (cluster.isMaster){ //processo principal crea los cluster
   const numCpus = require('os').cpus().length
   console.log('Número de cpus ' + numCpus)
   cluster.on('exit', (worker,code, signal)=>{
@@ -34,7 +45,7 @@ if (cluster.isMaster){ //Si soy el principal me creo los cluster
   for (let i = 0; i < numCpus; i++){
     cluster.fork();
   }
-}else{ //Si soy un cluster, arranco el servidor
+}else{ //proceso cluster creado que arranca el servidor.
 
   /**
    * Create HTTP server.
@@ -53,7 +64,6 @@ if (cluster.isMaster){ //Si soy el principal me creo los cluster
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -73,7 +83,6 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -101,7 +110,6 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'

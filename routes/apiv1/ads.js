@@ -9,22 +9,9 @@ const jwtAuth = require('../../lib/jwtAuth')
 const union = require('arr-union')
 
 /**
- * Check authenticate
+ * Check autenticación en anuncios
  */
 router.use(jwtAuth());
-
-/**
- * / GET /ads
- * Devuelve todos los anuncios 
- */
-/* router.get('/', async (req, res, next) => {
-    try {
-        const rows = await Ad.list({});
-        res.json({ success: true, result: rows });
-    } catch(err) {
-        next(err);
-    }
-}); */
 
 /**
  * / GET /ads
@@ -34,26 +21,22 @@ router.get('/', async (req, res, next) => {
     try {
         const tags = req.query.tags;
         const sell = req.query.sell;
-        const price = req.query.price;
         const name = req.query.name;
-
+        const price = req.query.price;
+        
         const filter = {};
         const start = parseInt(req.query.start)
         const limit = parseInt(req.query.limit);
         const sort = req.query.sort;
 
-        if (name){
-            filter.name = new RegExp('^' + name, "i");
+        if (tags){
+            filter.tags = tags;
         }
-        /* if (tags){
-        //    const aTags = new Array(tags);
-        //    console.log(aTags);
-            
-            filter.tags = new Array(tags);
-            console.log(filter.tags);
-        } */
         if (sell){
             filter.sell = sell;
+        }
+        if (name){
+            filter.name = new RegExp('^' + name, "i");
         }
         if (price){
             //comprobamos como se indica el precio
@@ -68,9 +51,11 @@ router.get('/', async (req, res, next) => {
             }
         }
 
-        const rows = await Ad.list(filter,limit, start, sort);
+        const rows = await Ad.list(filter, start, limit, sort);
         res.json({ success: true, result: rows });
     } catch(err) {
+        err.message = 'notFoundAds'
+        err.status = 404
         next(err);
     }
 });
@@ -91,6 +76,8 @@ router.get('/tags', async (req, res, next) => {
         
         res.json({ success: true, result: tag });
     } catch(err) {
+        err.message = 'notFoundTags'
+        err.status = 404
         next(err);
     }
 });

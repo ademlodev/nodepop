@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 var adSchema = mongoose.Schema({
-    name: { type: String, index:true},
+    name: { type: String, index:true, unique:true},
     sell: Boolean,
     price: Number,
     photo: String,
@@ -13,13 +13,7 @@ var adSchema = mongoose.Schema({
     collection : 'ads'
 });
 
-/* adSchema.statics.list = function(filters) {
-    const query = Ad.find(filters);
-    query.select();
-    return query.exec();
-} */
-
-adSchema.statics.list = function(filters, limit, start, sort) {
+adSchema.statics.list = function(filters, start, limit, sort) {
 
     //const query = Ad.find(filters);
     const query = Ad.find();
@@ -27,7 +21,7 @@ adSchema.statics.list = function(filters, limit, start, sort) {
         query.where('name').equals(filters.name);
     }
     if (filters.tags){
-        query.where('tags').in(filters.tags);
+        query.where('tags').in(new Array(filters.tags));
     }
     if (filters.sell){
         query.where('sell').equals(filters.sell);
@@ -57,6 +51,5 @@ adSchema.statics.tagList = function(filters){
 }
 
 const Ad = mongoose.model('Ad',adSchema);
-//console.log('Created schema Ad');
 
 module.exports = Ad;

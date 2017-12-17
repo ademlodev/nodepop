@@ -11,9 +11,9 @@ const User = require('../../db/models/User')
  * Crea un usuario
  */
 router.post('/register', function(req, res, next) {
+  req.body.password = hash.sha256().update(req.body.password).digest('hex')
   let user = new User(req.body);
   
-  user.password = hash.sha256().update(user.password).digest('hex')
   user.save((err, userSaved) =>{
     if (err){
       next(err);
@@ -31,9 +31,7 @@ router.post('/register', function(req, res, next) {
 router.post('/autheticate', function(req, res, next) {
   // recogemos credenciales
   const email = req.body.email;
-  console.log(req.body.password);
   const password = hash.sha256().update(req.body.password).digest('hex');
-  console.log(password);
 
   // Buscamos en la base de datos
   User.findOne({email: email}).exec(function(err, user) {

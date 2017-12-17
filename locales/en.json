@@ -1,8 +1,8 @@
 {
-	"userNotFound" : "User not found",
-    "incorrectPassword": "Incorrect Password",
-    "invalidToken": "Invalid token",
-    "noToken": "No token provided",
-    "notFoundAds": "Ads not found",
-    "notFoundTags": "Tags not found"
+	"userNotFound": "User not found",
+	"incorrectPassword": "Incorrect Password",
+	"invalidToken": "Invalid token",
+	"noToken": "No token provided",
+	"notFoundAds": "Ads not found",
+	"notFoundTags": "Tags not found"
 }

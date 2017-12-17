@@ -67,15 +67,16 @@ router.get('/', async (req, res, next) => {
  */
 router.get('/tags', async (req, res, next) => {
     try {
-        const rows = await Ad.tagList({});
+        const rows = await Ad.tagList();
 
         let tag = new Array();
         for (let i=0; i < rows.length; i++){
             tag = union(tag, rows[i].tags);
         }
-        
+
         res.json({ success: true, result: tag });
     } catch(err) {
+        console.log(err);
         err.message = 'notFoundTags'
         err.status = 404
         next(err);

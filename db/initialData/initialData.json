@@ -8,7 +8,7 @@
             "tags": [ "lifestyle", "motor"]
         },
         {
-            "name": "iPhone 3GS",
+            "name": "Mobile iPhone 3GS",
             "sell": false,
             "price": 50.00,
             "photo": "images/anuncios/iphone.jpg",
@@ -22,7 +22,7 @@
             "tags": [ "lifestyle", "motor"]
         },
         {
-            "name": "Samsung S7",
+            "name": "Mobile Samsung S7",
             "sell": true,
             "price": 180.00,
             "photo": "images/anuncios/s7.jpg",

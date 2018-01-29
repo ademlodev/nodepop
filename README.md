@@ -32,11 +32,12 @@ Método /ads/tags Devolverá el conjunto de tags de todos los registros
 ## Procedimiento de preparación de la aplicación
 
 Al descargar la aplicación será necesario seguir estos pasos para poder ejecutarla.
+> Nota: indicar en la variable DATABASE_URI la ruta a la bbdd de mongo
 
 1. Primero ejecutar la instalación de los paquetes
-~~~
+``` bash
 $ npm install
-~~~
+```
 
 2. Arrancar el servidor mongodb.
 ~~~

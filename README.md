@@ -67,3 +67,12 @@ NOTA: Si se quisiera ejecutar la aplicación en cluster será necesario ejecutar
 ~~~
 $ npm run cluster
 ~~~
+
+Para la practica devops:
+
+Url de pagina web en html: https://web.profedebolillos.com/
+Url de api version 1 en node: https://nodepop.profedebolillos.com/apiv1
+
+Usuario con el que realizar pruebas en el api:
+email: jgarcia@admin.es
+pass: password

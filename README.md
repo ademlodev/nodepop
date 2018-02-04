@@ -70,9 +70,12 @@ $ npm run cluster
 
 Para la practica devops:
 
+IP del servidor: 52.14.71.207
 Url de pagina web en html: https://web.profedebolillos.com/
 Url de api version 1 en node: https://nodepop.profedebolillos.com/apiv1
 
 Usuario con el que realizar pruebas en el api:
+
 email: jgarcia@admin.es
+
 pass: password

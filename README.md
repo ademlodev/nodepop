@@ -68,9 +68,10 @@ NOTA: Si se quisiera ejecutar la aplicación en cluster será necesario ejecutar
 $ npm run cluster
 ~~~
 
-Para la practica devops:
+## Para la practica devops:
 
 IP del servidor: 52.14.71.207
+
 Url de pagina web en html: https://web.profedebolillos.com/
 Url de api version 1 en node: https://nodepop.profedebolillos.com/apiv1
 
